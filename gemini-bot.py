@@ -1,14 +1,15 @@
-import subprocess
-import sys
-
-def install(package):
-    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-
-install(google-generative-ai)
-    
 import streamlit as st
 import os
-import google.generativeai as genai
+import subprocess
+
+# Check if google.generativeai module is available, if not, install it
+try:
+    import google.generativeai as genai
+except ImportError:
+    st.write("google.generativeai module not found. Installing...")
+    subprocess.check_call(["pip", "install", "google-generative-ai"])
+    st.write("google.generativeai module installed successfully.")
+    import google.generativeai as genai
 
 st.title("Gemini GPT")
 
